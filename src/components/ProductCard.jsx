@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export default function ProductCard({ product }) {
-  const whatsappNumber = "573125858242"; // sin + para link
+  const whatsappNumber = "573125858242";
   const message = encodeURIComponent(`Hola! Me interesa el producto: ${product.name}`);
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
 
@@ -13,16 +13,19 @@ export default function ProductCard({ product }) {
   } else if (product.price === 0) {
     displayPrice = "0.0";
   } else if (typeof product.price === "number") {
-    // Si quieres formato con miles: ejemplo 45000 -> "45.000"
     displayPrice = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   } else {
-    displayPrice = product.price; // si ya es string
+    displayPrice = product.price;
   }
 
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
-      className="bg-white rounded-2xl shadow-md p-6 flex flex-col"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
+      className="bg-white dark:bg-neutral-900 rounded-2xl shadow-md dark:shadow-lg p-6 flex flex-col"
     >
       {/* Imagen */}
       <img
@@ -32,25 +35,26 @@ export default function ProductCard({ product }) {
       />
 
       {/* Nombre */}
-      <h4 className="text-xl font-semibold mb-2">{product.name}</h4>
+      <h4 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{product.name}</h4>
 
       {/* Descripción */}
-      <p className="text-gray-600 flex-grow">{product.description}</p>
+      <p className="text-gray-600 dark:text-gray-300 flex-grow">{product.description}</p>
 
-      {/* Precio (alineado a la derecha con símbolo $) */}
+      {/* Precio */}
       <div className="mt-4 flex items-center justify-end">
-        <span className="text-lg font-bold">${displayPrice}</span>
+        <span className="text-lg font-bold text-gray-800 dark:text-white">${displayPrice}</span>
       </div>
 
-      {/* Botón WhatsApp (mismo color/tamaño que Tienda) */}
-      <a
+      {/* Botón WhatsApp */}
+      <motion.a
+        whileHover={{ scale: 1.05 }}
         href={whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 w-full text-center bg-primary px-5 py-3 rounded-lg font-semibold text-white hover:opacity-95 transition"
+        className="mt-4 w-full text-center bg-primary text-white px-5 py-3 rounded-lg font-semibold hover:opacity-95 transition"
       >
         Pedir
-      </a>
+      </motion.a>
     </motion.div>
   );
 }

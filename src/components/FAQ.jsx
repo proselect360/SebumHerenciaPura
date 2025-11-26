@@ -40,9 +40,9 @@ export function FAQ() {
   ];
 
   return (
-    <section id="faq" className="py-20 bg-white">
+    <section id="faq" className="py-20 bg-[#faf7f2] dark:bg-[#0d0d0d]">
       <div className="container mx-auto px-6 max-w-3xl">
-        <h2 className="text-4xl font-bold text-center mb-12 tracking-tight">
+        <h2 className="text-4xl font-bold mb-12 text-center tracking-tight text-gray-900 dark:text-white">
           Preguntas Frecuentes
         </h2>
 
@@ -50,19 +50,19 @@ export function FAQ() {
           {faqs.map((item, i) => (
             <div
               key={i}
-              className="border-b border-gray-200 pb-3 cursor-pointer"
+              className="border-b border-gray-200 dark:border-neutral-700 pb-3 cursor-pointer"
               onClick={() => toggle(i)}
             >
               {/* Pregunta */}
               <div className="flex justify-between items-center">
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
                   {item.q}
                 </h3>
 
                 <motion.span
                   animate={{ rotate: openIndex === i ? 180 : 0 }}
                   transition={{ duration: 0.25 }}
-                  className="text-xl text-gray-500"
+                  className="text-xl text-gray-500 dark:text-gray-400"
                 >
                   ▼
                 </motion.span>
@@ -76,7 +76,7 @@ export function FAQ() {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-gray-700 text-base mt-2"
+                    className="text-gray-700 dark:text-gray-300 text-base mt-2"
                   >
                     {item.a}
                   </motion.p>

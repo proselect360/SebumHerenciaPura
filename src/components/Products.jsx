@@ -12,11 +12,11 @@ import { motion } from "framer-motion";
 
 export default function Products() {
   return (
-    <section id="productos" className="max-w-6xl mx-auto px-6 py-20">
+    <section id="productos" className="max-w-6xl mx-auto px-6 py-20 bg-white dark:bg-black">
       {/* Título */}
       <div className="text-center mb-12">
-        <h3 className="text-4xl font-bold tracking-tight">Nuestros Productos</h3>
-        <p className="text-gray-600 mt-2 text-lg">
+        <h3 className="text-4xl font-bold tracking-tight text-gray-800 dark:text-white">Nuestros Productos</h3>
+        <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
           Cuidado ancestral hecho con ingredientes reales.
         </p>
       </div>

@@ -7,37 +7,36 @@ export default function HowToUse() {
     {
       icon: <Droplets className="w-12 h-12" />,
       title: "1. Calienta una pequeña cantidad",
-      text: "Toma una pequeña cantidad y caliéntala entre tus dedos.",
+      text: "Toma una pequeña cantidad de producto y caliéntala entre tus manos para facilitar su aplicación.",
     },
     {
       icon: <Hand className="w-12 h-12" />,
       title: "2. Aplícalo en la piel limpia",
-      text: "Aplícalo suavemente sobre la piel limpia para lograr mejor absorción.",
+      text: "Aplica el producto sobre la piel limpia y seca para una mejor absorción y resultados visibles.",
     },
     {
       icon: <Sparkles className="w-12 h-12" />,
       title: "3. Masajea",
-      text: "Masajea con movimientos suaves hasta que el producto se absorba.",
+      text: "Masajea suavemente con movimientos circulares hasta que el producto se absorba por completo.",
     },
     {
       icon: <Sun className="w-12 h-12" />,
       title: "4. Úsalo en todo el cuerpo",
-      text: "Rostro, manos, labios, codos, talones y zonas resecas.",
+      text: "Aplícalo en rostro, manos, labios, codos, talones y cualquier zona que necesite hidratación.",
     },
     {
       icon: <Moon className="w-12 h-12" />,
       title: "5. Repite 1–2 veces al día",
-      text: "Para mejores resultados, úsalo diariamente en mañana y noche.",
+      text: "Para obtener mejores resultados, úsalo diariamente, preferiblemente en la mañana y en la noche.",
     },
   ];
 
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section className="py-20 bg-[#faf7f2]">
+    <section className="py-20 bg-[#faf7f2] dark:bg-[#0d0d0d]">
       <div className="max-w-6xl mx-auto px-6">
-
-        <h2 className="text-4xl font-bold text-center mb-12">
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
           Cómo Usarlo
         </h2>
 
@@ -49,11 +48,15 @@ export default function HowToUse() {
               onClick={() => setActiveStep(i)}
               className={`
                 p-4 rounded-2xl transition-all duration-300
-                ${activeStep === i ? "bg-primary text-white shadow-xl scale-110" : "bg-white text-primary shadow-md hover:scale-105"}
+                ${
+                  activeStep === i
+                    ? "bg-primary text-white shadow-xl scale-110"
+                    : "bg-white dark:bg-neutral-800 text-primary dark:text-primary shadow-md hover:scale-105"
+                }
               `}
             >
               {React.cloneElement(step.icon, {
-                className: "w-10 h-10",
+                className: "w-10 h-10 text-black dark:text-white",
               })}
             </button>
           ))}
@@ -68,19 +71,17 @@ export default function HowToUse() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.35 }}
-              className="bg-white p-10 rounded-3xl shadow-lg"
+              className="bg-white dark:bg-neutral-900 p-10 rounded-3xl shadow-lg dark:shadow-neutral-800"
             >
               <h3 className="text-2xl font-semibold mb-3 text-primary">
                 {steps[activeStep].title}
               </h3>
-
-              <p className="text-gray-700 text-lg">
+              <p className="text-gray-700 dark:text-gray-300 text-lg">
                 {steps[activeStep].text}
               </p>
             </motion.div>
           </AnimatePresence>
         </div>
-
       </div>
     </section>
   );
