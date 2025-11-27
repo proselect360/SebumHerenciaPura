@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section
       className="relative w-full h-[80vh] bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: "url('/images/hero.jpg')" }}
+      style={{ backgroundImage: "url('/images/hero.webp')" }}
     >
       {/* Capa oscura para mejorar legibilidad */}
       <div className="absolute inset-0 bg-black/60"></div>
