@@ -1,131 +1,102 @@
-import React, { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from "react";
 
-// Añade este CSS en tu archivo global o en el componente si usas CSS modules
-const scrollbarStyles = `
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-`;
-
-export function BenefitsCarousel() {
-  const scrollRef = useRef(null);
-  const beneficios = [
-    { icono: "💧", texto: "Hidratación profunda y de larga duración" },
-    { icono: "⭐", texto: "Alivia irritaciones y piel reactiva" },
-    { icono: "🛡️", texto: "Fortalece la barrera cutánea naturalmente" },
-    { icono: "🥇", texto: "Rico en vitaminas A, D, E y K" },
-    { icono: "🌿", texto: "100% natural, sin químicos agresivos" },
-    { icono: "🧬", texto: "Compatible con la piel humana" },
-    { icono: "✨", texto: "Textura suave sin sensación grasa" },
+export function SeboResBeneficios() {
+  const benefits = [
+    {
+      title: "Hidratación profunda y de larga duración",
+      description: "Penetra en las capas más profundas de la piel, manteniéndola hidratada por horas sin sensación grasa.",
+      extra: "Ideal para pieles secas y deshidratadas."
+    },
+    {
+      title: "Alivia irritaciones y piel reactiva",
+      description: "Calma rojeces, picazón y sensibilidad gracias a su composición biocompatible.",
+      extra: "Perfecto para pieles sensibles y reactivas."
+    },
+    {
+      title: "Fortalece la barrera cutánea naturalmente",
+      description: "Refuerza la protección natural de la piel, previniendo la pérdida de humedad y la entrada de agentes irritantes.",
+      extra: "Ayuda a prevenir futuras irritaciones."
+    },
+    {
+      title: "Rico en vitaminas A, D, E y K",
+      description: "Aporta nutrientes esenciales que favorecen la regeneración celular y la salud de la piel.",
+      extra: "Promueve una piel más sana y luminosa."
+    },
+    {
+      title: "Textura suave sin sensación grasa",
+      description: "Absorción rápida y no deja residuos, ideal para todo tipo de pieles.",
+      extra: "Deja la piel suave y cómoda."
+    }
   ];
 
-  const items = [...beneficios, ...beneficios, ...beneficios];
+  const carouselRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const scroll = (direction) => {
-    const container = scrollRef.current;
-    if (!container) return;
-    const scrollAmount = direction === "left" ? -300 : 300;
-    container.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth",
-    });
-  };
+  // Duplica los beneficios para simular un carrusel infinito
+  const infiniteBenefits = [...benefits, ...benefits];
 
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const clientWidth = carouselRef.current.clientWidth;
+        const newIndex = (currentIndex + 1) % benefits.length;
 
-    const handleScroll = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = container;
-      const isAtStart = scrollLeft === 0;
-      const isAtEnd = scrollLeft + clientWidth >= scrollWidth;
-
-      if (isAtStart) {
-        container.scrollLeft = scrollWidth / 3;
-      } else if (isAtEnd) {
-        container.scrollLeft = (scrollWidth / 3) * 2;
+        setCurrentIndex(newIndex);
+        carouselRef.current.scrollTo({
+          left: clientWidth * newIndex,
+          behavior: "smooth"
+        });
       }
-    };
+    }, 3000); // Cambia cada 3 segundos
 
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => clearInterval(interval);
+  }, [currentIndex, benefits.length]);
 
   return (
-    <>
-      <style>{scrollbarStyles}</style>
-      <section id="beneficios" className="py-20 bg-[#FAF7F2] dark:bg-[#0d0d0d]">
-        <div className="container mx-auto px-6 relative">
-          <h2 className="text-5xl font-bold text-center mb-12 tracking-tight dark:text-white">
-            Beneficios
-          </h2>
+    <section
+      className="py-20 bg-[#FAF7F2] dark:bg-[#0d0d0d]"
+      id="beneficios"
+      aria-label="Beneficios del sebo purificado"
+    >
+      <div className="container mx-auto px-6">
+        <h2 className="text-5xl font-bold text-center mb-10 tracking-tight text-gray-900 dark:text-white">
+          Beneficios
+        </h2>
 
-          <button
-            onClick={() => scroll("left")}
-            className="
-              hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
-              bg-white dark:bg-neutral-800
-              shadow-lg rounded-full p-3
-              text-gray-700 dark:text-gray-300
-              text-xl hover:bg-gray-100 dark:hover:bg-neutral-700
-              transition z-20
-            "
-          >
-            <FaChevronLeft />
-          </button>
-
-          <div
-            ref={scrollRef}
-            className="
-              flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory
-              scroll-smooth scrollbar-none
-            "
-          >
-            {items.map((b, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="
-                  min-w-[260px]
-                  bg-white dark:bg-neutral-900
-                  text-gray-800 dark:text-gray-200
-                  p-7 rounded-2xl shadow-md
-                  snap-center border border-gray-200 dark:border-neutral-700
-                  hover:shadow-xl hover:-translate-y-1 transition
-                  text-center text-lg
-                "
-              >
-                <div className="text-4xl mb-3">{b.icono}</div>
-                <p className="font-medium">{b.texto}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <button
-            onClick={() => scroll("right")}
-            className="
-              hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
-              bg-white dark:bg-neutral-800
-              shadow-lg rounded-full p-3
-              text-gray-700 dark:text-gray-300
-              text-xl hover:bg-gray-100 dark:hover:bg-neutral-700
-              transition z-20
-            "
-          >
-            <FaChevronRight />
-          </button>
+        <div
+          ref={carouselRef}
+          className="
+            flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory 
+            scroll-smooth 
+            [-webkit-overflow-scrolling:touch]
+            scrollbar-hide
+          "
+        >
+          {infiniteBenefits.map((b, i) => (
+            <div
+              key={i}
+              className="
+                min-w-[260px] bg-white dark:bg-[#0d0d0d] p-6 rounded-2xl shadow-lg 
+                text-center text-lg snap-center transition-all duration-300 
+                hover:shadow-2xl hover:-translate-y-1
+                border border-white/50 dark:border-gray-700
+              "
+            >
+              <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">
+                {b.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-3">
+                {b.description}
+              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-500">
+                {b.extra}
+              </p>
+            </div>
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
-export default BenefitsCarousel;
+export default SeboResBeneficios;

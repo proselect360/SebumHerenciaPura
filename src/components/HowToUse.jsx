@@ -65,18 +65,15 @@ export default function HowToUse() {
           })}
         </div>
 
-        {/* CONTENIDO DINÁMICO CON GIRO */}
+        {/* CONTENIDO DINÁMICO CON GIRO A LA IZQUIERDA */}
         <div className="max-w-2xl mx-auto text-center">
-          <div
-            className="relative"
-            style={{ perspective: "1000px" }}
-          >
+          <div className="relative" style={{ perspective: "1000px" }}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStep}
-                initial={{ opacity: 0, rotateY: -90 }}
-                animate={{ opacity: 1, rotateY: 0 }}
-                exit={{ opacity: 0, rotateY: 90 }}
+                initial={{ opacity: 0, rotateY: -90 }}   // entra desde la izquierda
+                animate={{ opacity: 1, rotateY: 0 }}     // se coloca de frente
+                exit={{ opacity: 0, rotateY: -90 }}      // sale hacia la izquierda también
                 transition={{ duration: 0.45 }}
                 style={{ transformStyle: "preserve-3d" }}
                 className="bg-white dark:bg-neutral-900 p-10 rounded-3xl shadow-lg dark:shadow-neutral-800"

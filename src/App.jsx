@@ -14,7 +14,7 @@ import About from './components/About'
 import { FAQ } from './components/FAQ'
 import Footer from './components/Footer'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
-
+import Beneficioscebo from './components/Beneficioscebo'
 export default function App() {
   return (
     <div
@@ -25,11 +25,12 @@ export default function App() {
       <main>
         <Hero />
         <Benefits />
-        <Products />
-        <HowToUse />
-        <Ingredients />
-        <QualityBadges />
+        <Beneficioscebo/>´
         <Comparison />
+        <Products />´
+        <Ingredients />
+        <HowToUse />
+        <QualityBadges />
         <ShippingAndPayment />
         <CallToAction />
         <Guarantee />
