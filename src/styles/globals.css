@@ -1,7 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables de tema */
+:root {
+  --primary: #a87c2f;
+  --bg: #f5eee4;
+  --text: #1a120b;
+}
+
+/* 🌙 Dark mode */
+.dark {
+  --bg: #0d0d0d; /* más oscuro tipo navy/negro */
+  --text: #f5f5f5;
+}
+
+/* Fondo global */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* utilidades */
+.bg-primary { background-color: var(--primary); }
+.text-primary { color: var(--primary); }
+
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  scrollbar-width: none;     /* Firefox */
 }
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, Opera */
+  display: none;             /* Chrome, Safari, Opera */
 }
